@@ -1,33 +1,48 @@
+userinput = []
 ticket = 1000
 currentTicket = 0
-def ticketWithdraw(ticket,currentTicket):
-    print("------------------------------")
-    print(f"Your ticket balance: {ticket}")
-    print("------------------------------")
-    withdraw = int(input("Withdraw: "))
-    print("------------------------------")
-    if withdraw > ticket:
-        print("Invalid Amount")
-    elif ticket == 0:
-        print("No more tickets")
-    else:    
-        ticket = ticket - withdraw
-        currentTicket = ticket
-        print("------------------------------")
-        print(f"Your current balance ticket: {currentTicket}")
-        print("------------------------------")          
-   
-while True:
-    print("------------------------------")
-    username = input("Enter Username: ")
-    print("------------------------------")
-    if not username.isalpha():
-        print("------------------------------")
-        print("Your username does not contains numbers!")
-        print("------------------------------")
-    else:
-        ticketWithdraw(ticket,currentTicket)
-    
-    
-    
 
+def signup(username, password):
+    for user in userinput:
+        if user[0] == username:
+            print("-----User already exists-----\n")
+            return False
+    if not username.isalpha():
+        print("-----Not contain numbers!-----\n") 
+        return False   
+    userinput.append((username,password))
+    print(f"------------User created succesfully!-----------\n")   
+    return True 
+
+def login(username,password):
+    for user in userinput:
+        if user[0] == username and user[1] == password:
+            print("----------Login Succesfully!-----------\n")
+            return True  
+        elif user[0] != username and user[1] != password:
+            print(f"-----User not registered-----\n")
+            return False      
+        else:
+            print("-----Incorrect username or password-----\n")
+            
+while True:
+    print("---------------Ticket Withdrawal---------------")
+    print("[1] Sign up")
+    print("[2] Login")
+    print("[3] Exit")
+    choose = int(input("Choice: "))
+    if choose == 1:
+        print("-----------Sign up-----------")
+        username = input("Enter username: ")
+        password = input("Enter password: ")
+        signup(username, password)
+    elif choose == 2:
+        print("-----------Log In-----------")
+        username = input("Enter username: ")
+        password = input("Enter password: ")
+        login(username,password)
+    elif choose == 3:
+        print("-----Exit the program------")
+        break
+    else:
+        print("Invalid Choice")          
